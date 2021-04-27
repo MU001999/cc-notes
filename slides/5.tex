@@ -79,18 +79,15 @@
 	\end{frame}
 	
 	\section{交替图灵机}
-	\begin{frame}{$\lambda{\uline{\omega}}$中的弱化规则(weakening rule)}
-		\begin{exampleblock}{定义4.3.1（弱化规则，weakening rule）}
-			(weak) 如果$x\not\in\Gamma$，则$\dfrac{\Gamma\vdash A:B\ \ \ \Gamma\vdash C:s}{\Gamma,x:C\vdash A:B}$
-		\end{exampleblock}
+	\begin{frame}{交替图灵机（Alternating TM）的定义}
+		NDTM 不是一个现实的计算模型，但它有助于我们关注猜一个答案和验证它的区别。ATM 在没有明显的短证明的问题中起到类似的作用。\newline
 		
-		若上下文$\Gamma$已经可以推导出$A:B$，在$\Gamma$的尾部添加了一个任意的声明（弱化）后仍然可以推导出$A:B$。需要注意的是添加的声明的类型需要是可推导出的。
+		ATM 类似 NDTM，但其内部状态（除了接受和终止状态）会被 $\exists$ 或者 $\forall$ 标记。NDTM 接受输入当存在一条到达接受状态的路径时，可以看作每个内部状态都标记为 $\exists$，在 ATM 中，则可以在 $\exists$ 和 $\forall$ 之间交替选择。
+	\end{frame}
+	\begin{frame}
+		\includegraphics[width=\linewidth]{../5 & 6/note.assets/image-20210427213236953.png}\newline
 		
-		\begin{block}{推导$\alpha:*,x:\alpha\vdash\alpha:*$}
-			$\cfrac{\cfrac{(1)\ \emptyset\vdash*:\square}{(2)\ \alpha:*\vdash\alpha:*}\ (var)\ \ \ \cfrac{(1)\ \emptyset\vdash*:\square}{(2)\ \alpha:*\vdash\alpha:*}\ (var)}{(3)\ \alpha:*,x:\alpha\vdash\alpha:*}\ (weak)$
-		\end{block}
-		
-		% 在添加了这条规则之后，之前的稀疏引理便可以在$\lambda{\uline{\omega}}$中成立。
+		\includegraphics[width=\linewidth]{../5 & 6/note.assets/image-20210427094554653.png}
 	\end{frame}
 	
 	\section{通过预言机定义层级}
