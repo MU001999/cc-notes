@@ -3,7 +3,7 @@
 1. P100, Claim 5.9, $\Sigma^p_i$ 中的 $u\in\{0,1\}^{q(|x|)}$，因此它中出现的 $\forall$ 可以一次遍历 $2^{q(|x|)}$，而 $\Sigma_i{\bf TIME}(n^c)$ 中 $i/2$ 次的 $\forall$ 只有两种选择，可以直接相等吗？
 2. P108, 第一段中第二句，"Note also that the Boolean formulas studied in earlier chapters are circuits where the fan-out (i.e., number of outgoing ed ges) of each vertex is 1"，我理解出度为 1 的话，说明每个变量只使用一次，回顾应该是没有这个限制的？
 3. P115，6.5 前，说 "Thus upper bounds (in this case, NP⊆P) can potentially be use dto prove circuit lower bounds"，是什么意思？
-4. P119, Definition 6.28, 为什么是对数空间规约而非多项式时间规约？我理解多项式时间即可。
+4. P119, Definition 6.28, 为什么是对数空间规约而非多项式时间规约？我理解多项式时间即可，尽管对数时间规约属于 P 类。
 
 # 5 - 多项式层级和交替图灵机
 
@@ -231,7 +231,7 @@ Theorem 6.20 隐含着，如果 P = NP，则 EXP 不包含于 P/poly。因为如
 
 还有一种证明的思路是通过计算存在一个与函数相匹配的大小最多为 S 的电路的概率，而概率的值远小于一，因此存在一个函数使得不存在满足大小的电路来计算。这样的技术称为概率方法。
 
-因此只要找到一个这样的函数是 NP 中的问题，就可以证明 NP 不包含与 P/poly，但是目前 NP 语言的最好的电路下界只有 (5 - o(1)) n。
+因此只要找到一个这样的函数是 NP 中的问题，并且不能被大于多项式大小的电路解决，就可以证明 NP 不包含与 P/poly，但是目前 NP 语言的最好的电路下界只有 (5 - o(1)) n。
 
 > 我认为电路的下界之所以好计算，是因为电路的大小和运行时间都是由门的数量决定的，而图灵机本身允许循环等操作，所以不好计算下界。
 
@@ -251,11 +251,45 @@ Theorem 6.20 隐含着，如果 P = NP，则 EXP 不包含于 P/poly。因为如
 
 ### 6.7.1 类 NC 和 AC
 
+关联并行计算和电路。一个电路的深度指从一个输入节点到输出节点最长路径的长度。
+
 <img src="note.assets/image-20210427162533386.png" alt="image-20210427162533386" style="zoom:50%;" />
 
+同样可以定义一致的 NC，通过限定电路是对数空间一致的。
+
 <img src="note.assets/image-20210427162543119.png" alt="image-20210427162543119" style="zoom:50%;" />
+
+AC 和 NC 类似，但是不限制节点的入度。因为对于 poly(n) 个入度的与或门，可以用限制为 2 个入度的与或门，构造深度为 O(log n) 的子电路模拟。因此有：${\bf NC}^i\sube{\bf AC}^i\sube{\bf NC}^{i+1}$。
+
+可以发现 NC 刻画了有高效并行算法的语言：
 
 <img src="note.assets/image-20210427162618074.png" alt="image-20210427162618074" style="zoom:50%;" />
 
 ### 6.7.2 P-完全性
+
+一个开放问题是是否每个多项式时间的算法都有一个高效的并行实现，或者说是否 $\bf P=NC$。这促使了 P-完全性理论，可以用来探究哪些问题可能是可高效并行化的以及哪些不能。
+
+<img src="note.assets/image-20210427190230118.png" alt="image-20210427190230118" style="zoom: 33%;" />
+
+**疑问**，为什么用对数空间规约（尽管对数空间规约可在多项式时间内完成）。
+
+<img src="note.assets/image-20210427190510329.png" alt="image-20210427190510329" style="zoom:33%;" />
+
+一个 P-完全语言：
+
+<img src="note.assets/image-20210427190538551.png" alt="image-20210427190538551" style="zoom:33%;" />
+
+其他 P-语言都可以在对数空间内归约到 CIRCUIT-EVAL，因为对数空间一致，可以生成多项式电路，然后计算即可。
+
+## 6.8 指数大小的电路
+
+前边提到，对于任意语言，都有大小为 $O(2^n/n)$ 的电路可以解决。但实际中找到这样的电路可能非常困难（有时甚至不可判定）。类似指数空间一致族，将其中的隐式指数空间计算替换为多项式时间计算，得到的电路就可以达到指数大小，因为计算电路的每一位需要多项式时间，那么对多项式状态的枚举可以得到指数的大小的状态，每个对应电路的一位，可以达到指数大小。得到 DC-一致：
+
+<img src="note.assets/image-20210427192246775.png" alt="image-20210427192246775" style="zoom:33%;" />
+
+现在可以使用有限深度的一致的电路族来描述 PH 类：
+
+<img src="note.assets/image-20210427192410944.png" alt="image-20210427192410944" style="zoom:33%;" /><img src="note.assets/image-20210427192420565.png" alt="image-20210427192420565" style="zoom:33%;" />
+
+其中，我理解是前三条使得该类族可模拟 PH 问题中 $\forall$ 的选择，第四条使中间节点只能是 and/or，跟 PH 中的 $\forall$/$\exist$ 功能一致，而常数的深度和 PH 问题中不同的层次相对应。如果去掉常数深度的限制，则定义等价于 EXP。
 
