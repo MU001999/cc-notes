@@ -45,7 +45,7 @@ $\bf PH$ 一般化 $\bf NP$，$\bf coNP$ 以及 ${\bf\Sigma}_2^p$。这个类包
 
 <img src="note.assets/image-20210426160324184.png" alt="image-20210426160324184" style="zoom: 33%;" />
 
-有 ${\bf\Sigma}_1^p={\bf NP}$。定义 ${\bf\Pi}_i^p={\bf co\Sigma}_i^p=\{\overline{L}:L\in{\bf\Sigma}_i^p\}$。因此 ${{\bf\Pi}_i^p={\bf coNP}}$。并且有 ${\bf\Sigma}_2^p\sube{\bf\Pi}_{i+1}^p\sube{\bf\Sigma}_{i+2}^p$，因此${\bf PH}=\cup_{i>0}{\bf\Pi}_i^p$。
+有 ${\bf\Sigma}_1^p={\bf NP}$。定义 ${\bf\Pi}_i^p={\bf co\Sigma}_i^p=\{\overline{L}:L\in{\bf\Sigma}_i^p\}$。因此 ${{\bf\Pi}_1^p={\bf coNP}}$。并且有 ${\bf\Sigma}_i^p\sube{\bf\Pi}_{i+1}^p\sube{\bf\Sigma}_{i+2}^p$，因此${\bf PH}=\cup_{i>0}{\bf\Pi}_i^p$。
 
 ### 5.2.1 $\bf PH$ 的性质
 
@@ -59,7 +59,7 @@ $\bf PH$ 一般化 $\bf NP$，$\bf coNP$ 以及 ${\bf\Sigma}_2^p$。这个类包
 
 <img src="note.assets/image-20210427092442758.png" alt="image-20210427092442758" style="zoom:33%;" />
 
-显然如 $\bf NP$ 和 $\bf coNP$ 一样，$\bf PH$ 也包含与 $\bf PSPACE$，除非 PH 塌缩，否则 $\bf PH\neq PSPACE$。
+显然如 $\bf NP$ 和 $\bf coNP$ 一样，$\bf PH$ 也包含于 $\bf PSPACE$，除非 PH 塌缩，否则 $\bf PH\neq PSPACE$。
 
 <img src="note.assets/image-20210427093527360.png" alt="image-20210427093527360" style="zoom:33%;" />
 
