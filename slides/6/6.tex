@@ -18,20 +18,20 @@
 		\titlepage
 	\end{frame}
 	
-	\begin{frame}{目录}
-		\tableofcontents
-	\end{frame}
-
 	\begin{frame}{一致与非一致计算}
 		\begin{block}{Uniform Computation}
 			对不同的输入大小，使用相同的算法。
 		\end{block}
-	
+		
 		\begin{block}{Nonuniform Computation}
 			对不同的输入大小，允许使用不同的算法。
 		\end{block}
 	\end{frame}
-	
+
+	\begin{frame}{目录}
+		\tableofcontents
+	\end{frame}
+
 	\section{布尔电路和 $\bf P_{/POLY}$}
 	\begin{frame}{布尔电路}
 		\includegraphics[width=0.9\linewidth]{../../5 & 6/note.assets/image-20210427143007226.png}
@@ -104,20 +104,6 @@
 		\includegraphics[width=\linewidth]{../../5 & 6/note.assets/image-20210427152252873.png}\newline
 		
 		我理解可以认为对数空间和多项式时间，都可以解决 P 类问题生成多项式大小的电路问题，并不能表示 $\bf L=P$。
-	\end{frame}
-	
-	\begin{frame}{$\bf PH$ 不同层的完全问题}
-		每个 $i\in\mathbb{N}$，${{\bf\Sigma}_i^p}$ 和 ${{\bf\Pi}_i^p}$ 都有完全问题，PH 没有完全问题（除非 PH 塌缩）\newline
-		
-		\includegraphics[width=\linewidth]{../../5 & 6/note.assets/image-20210427092442758.png}\newline
-		
-		如 $\bf NP$ 和 $\bf coNP$，$\bf PH$ 也包含于 $\bf PSPACE$。而除非 PH 塌缩，否则 $\bf PH\neq PSPACE$
-	\end{frame}
-	
-	\begin{frame}
-		\includegraphics[width=\linewidth]{../../5 & 6/note.assets/image-20210427093527360.png}\newline
-		
-		需要注意的是，其中每个 $u_i$ 表示一组布尔变量。
 	\end{frame}
 	
 	\section{接受建议的图灵机}
