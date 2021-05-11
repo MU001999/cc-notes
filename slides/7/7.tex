@@ -52,17 +52,74 @@
 	\end{frame}
 	
 	\section{一些 PTM 的例子}
-	\begin{frame}{查找第 $k$ 小的数}{Finding the Kth Smallest
-			Number}
+	\begin{frame}{查找第 $k$ 小的数}{Finding the $k$-th Smallest Number}
+		\includegraphics[width=\linewidth]{../../7/note.assets/image-20210508183753819.png}
 	\end{frame}
 
 	\begin{frame}{概率素数检测}{Probabilistic Primality Testing}
+		\includegraphics[width=0.4\linewidth]{../../7/note.assets/image-20210508190017980.png}\newline
+		
+		对整数 $N$，以及 $A\in[N-1]$，定义 $QR_N(A)$：
+		
+		\includegraphics[width=0.7\linewidth]{../../7/note.assets/image-20210508203151275.png}\newline
+		
+		对奇数 $N$ 和 $A$，定义 $(\frac{N}{A}):=\Pi^k_{i=1}QR_{P_i}(A)$，其中 $P_i$ 是 $N$ 的所有质因子。
+	\end{frame}
+
+	\begin{frame}{概率素数检测}{Probabilistic Primality Testing}
+		算法：对于一个随机的 $1\le A<N$，如果 $gcd(N,A)>1$ 或 $(\frac{N}{A})\neq A^{(N-1)/2}$，则判断 $N$ 为合数；否则认为 $N$ 是素数。\newline
+		
+		$N$ 是素数时一定满足 $gcd(N,A)=1$ 和 $(\frac{N}{A})=A^{(N-1)/2}$；$N$ 是奇合数时，满足 $gcd(N,A)=1$ 的 $A$ 中仅有最多一半能够令 $(\frac{N}{A})=A^{(N-1)/2}$，因此合数同时满足这两个条件的概率小于 $1/2$。
 	\end{frame}
 	
+	\begin{frame}{多项式恒等检测，Polynomial Identity Testing}
+		\begin{block}{代数电路}
+			类似布尔电路，但运算为 $+,-,*$。代数电路定义了一个由 $\mathbb{Z}^n$ 到 $\mathbb{Z}$ 的多项式。
+		\end{block}
+		
+		\begin{block}{ZEROP}
+			定义 ZEROP 为计算恒等于零的多项式的代数电路的集合。
+		\end{block}
+	
+		\begin{block}{Schwartz-Zippel Lemma}
+			\includegraphics[width=\linewidth]{../../7/note.assets/image-20210509094630024.png}
+		\end{block}
+	\end{frame}
+
 	\begin{frame}{多项式恒等检测}{Polynomial Identity Testing}
+		一个大小为 $m$ 的电路 $C$ 可以包含最多 $m$ 个乘法，即定义一个次数最多为 $2^m$ 的多项式。\newline
+		
+		一个简单的概率算法：从 1 到 $10*2^m$ 中选择 $n$ 个数 $x_1,...,x_n$，求电路 $C$ 在 $x_1,...,x_n$ 上的值 $y$，如果 $y=0$ 则接受，否则拒绝。\newline
+		
+		显然如果 $C\in{\rm ZEROP}$，则总是接受。而如果 $C\notin{\rm ZEROP}$，至少有 $9/10$ 的概率会拒绝。因为 $d<2^m$，而 $|S|=10*2^m$，因此 $Pr(p\neq0)\ge\cfrac{9}{10}$。
+	\end{frame}
+
+	\begin{frame}{多项式恒等检测}{Polynomial Identity Testing}
+		问题：输出的大小可能为 $(10*2^m)^{2^m}$，即 $2^m$ 个 $10*2^m$ 相乘。\newline
+		
+		解决方案：指纹（fingerprinting）技术。即在求值时模 $k$，$k$ 在 $[2^{2m}]$ 中随机选择，最后计算的值为 $y\ (mod\ k)$，显然如果 $y=0$，则 $y\ (mod\ k)$=0，而如果 $y\neq0$，则 $k$ 至少有 $\delta=\frac{1}{4m}$ 的概率不整除 $y$。可以通过重复这个过程 $O(1/\delta)$ 次，并且只有所有的输出都为 0 才接受来减小误差。
 	\end{frame}
 
 	\begin{frame}{二分图完备匹配检测}{Testing for Perfect Matching in a Bipartite Graph}
+		令 $G=(V,E)$ 是一个二分图，其中 $V$ 可以分成两个大小相同的不相交子集 $V_1,V_2$，即 $V=V_1\cup V_2$，并有 $E\subseteq V_1\times V_2$，即 $G$ 中的每一个边的两个顶点都分别属于 $V_1$ 和 $V_2$。\newline
+		
+		$G$ 中的一个完备匹配是边的一个子集 $E'\subseteq E$ ，使得每个顶点在 $E'$ 中恰好出现一次。
+	\end{frame}
+
+	\begin{frame}{二分图完备匹配检测}{Testing for Perfect Matching in a Bipartite Graph}
+		记 $n=|V_1|=|V_2|$，用集合 $[n]$ 标识这两个集合，可以把 $E'$ 看作是一个排列 $\sigma:[n]\rightarrow[n]$，映射每个 $i\in[n]$ 到一个唯一的 $j\in[n]$，使得 $\overline{ij}\in E'$。令 $X$ 是一个 $n\times n$ 的实变量矩阵，如果边 $\overline{ij}\in E$，则 $X_{i,j}$ 等于变量 $x_{i,j}$，否则 $X_{i,j}$ 等于 0。\newline
+		
+		一个矩阵 $A$ 的行列式定义为：
+		
+		\includegraphics[width=0.4\linewidth]{../../7/note.assets/image-20210509123241893.png}\newline
+		
+		如果 $G$ 有完备匹配当且仅当 $det(X)$ 不是恒等于零的多项式。
+	\end{frame}
+
+	\begin{frame}{二分图完备匹配检测}{Testing for Perfect Matching in a Bipartite Graph}
+		算法：从 $[2n]$ 中为 $x_{i,j}$ 选择值，在 $X$ 中替换并计算行列式，如果行列式非零，则判定输入的图有完备匹配，否则判定无。\newline
+		
+		对于一个无完备匹配的图，结果一定为零；而对于一个存在完美匹配的图，结果不为零的概率大于等于 $1-\frac{n}{2n}=\frac{1}{2}$，因为多项式中次数最多为 $n$。
 	\end{frame}
 	
 	\section{单边误差和“零边”误差}
@@ -104,11 +161,11 @@
 	\end{frame}
 
 	\begin{frame}{允许更一般的随机选择}
-		当生成0/1的生成器生成0的概率为$\rho\neq1/2$时，若$\rho$是可以高效计算（每一位可以多项式时间内计算）的数，则对应的概率算法的计算能力不会增加：\newline
+		对于出现“heads”概率是 $\rho\neq\cfrac{1}{2}$ 的硬币，称之为 $\rho$-币。当 $\rho$ 是可高效计算（每一位可以多项式时间计算）的数时，掷$\rho$-币的概率算法的能力不会增加。\newline
 		
 		\includegraphics[width=\linewidth]{../../7/note.assets/image-20210509154955249.png}\newline
 		
-		相反的，$\rho\neq\cfrac{1}{2}$的概率算法的计算能力也不弱于标准概率算法。
+		相反的，掷$\rho$-币的概率算法的计算能力也不弱于标准概率算法。
 	\end{frame}
 	
 	\section{随机规约}
